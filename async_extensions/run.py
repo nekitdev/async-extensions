@@ -9,6 +9,7 @@ __all__ = ("run",)
 P = ParamSpec("P")
 T = TypeVar("T")
 
+
 async def awaiting(awaitable: Awaitable[T]) -> T:
     return await awaitable
 

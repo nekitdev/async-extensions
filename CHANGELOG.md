@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 1.2.0 (2023-01-29)
+
+### Changes
+
+- `attrs` and `iters` libraries are not used anymore.
+
 ## 1.1.1 (2023-01-29)
 
 ### Features

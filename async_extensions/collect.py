@@ -1,7 +1,12 @@
-from typing import Any, Awaitable, List, Tuple, TypeVar, Union, overload
+from typing import (
+    Any, AsyncIterable, AsyncIterator, Awaitable, List, Tuple, TypeVar, Union, overload
+)
 
+from async_extensions.standard import iter_to_async_iter
 from async_extensions.task_group import create_task_group
-from async_extensions.typing import AnyException, AnyIterable, DynamicTuple, EmptyTuple, is_error
+from async_extensions.typing import (
+    AnyException, AnyIterable, DynamicTuple, EmptyTuple, is_async_iterable, is_error, is_iterable
+)
 
 __all__ = ("collect", "collect_results", "collect_iterable", "collect_iterable_results")
 
@@ -176,18 +181,43 @@ async def collect_results(*awaitables: Awaitable[Any]) -> DynamicTuple[AnyResult
     return tuple(await collect_iterable_results(awaitables))
 
 
+NOT_ANY_ITERABLE = "{} is neither an async iterable, nor an iterable"
+
+
+async def tag_awaitables(
+    awaitables: AsyncIterable[Awaitable[T]]
+) -> AsyncIterator[Tuple[int, Awaitable[T]]]:
+    tag = 0
+
+    async for awaitable in awaitables:
+        yield (tag, awaitable)
+
+        tag += 1
+
+
 async def collect_iterable_results(
     iterable: AnyIterable[Awaitable[T]],
 ) -> List[AnyResult[T]]:
     results: List[AnyTaggedResult[T]] = []
 
+    awaitables: AsyncIterable[Awaitable[T]]
+
+    if is_async_iterable(iterable):
+        awaitables = iterable
+
+    elif is_iterable(iterable):
+        awaitables = iter_to_async_iter(iterable)
+
+    else:
+        raise TypeError(NOT_ANY_ITERABLE.format(repr(iterable)))
+
     async with create_task_group() as task_group:
-        async for tag, awaitable in async_iter(iterable).enumerate().unwrap():
+        async for tag, awaitable in tag_awaitables(awaitables):
             task_group.start_soon(append_tagged_result, awaitable, tag, results)
 
     results.sort(key=by_tag)
 
-    return iter(results).map(result).list()  # type: ignore
+    return list(map(result, results))  # type: ignore
 
 
 def unwrap_error(result: AnyResult[T]) -> T:
@@ -301,9 +331,4 @@ async def collect(*awaitables: Awaitable[Any]) -> DynamicTuple[Any]:
 
 
 async def collect_iterable(iterable: AnyIterable[Awaitable[T]]) -> List[T]:
-    return iter(await collect_iterable_results(iterable)).map(unwrap_error).list()
-
-
-# import cycle solution
-from iters.async_iters import async_iter
-from iters.iters import iter
+    return list(map(unwrap_error, await collect_iterable_results(iterable)))

@@ -3,7 +3,16 @@ from typing import Any, AsyncIterable, Iterable, Tuple, TypeVar, Union
 
 from typing_extensions import TypeAlias, TypeGuard
 
-__all__ = ("AnyException", "AnyIterable", "DynamicTuple", "EmptyTuple", "is_error", "is_instance")
+__all__ = (
+    "AnyException",
+    "AnyIterable",
+    "DynamicTuple",
+    "EmptyTuple",
+    "is_error",
+    "is_async_iterable",
+    "is_iterable",
+    "is_instance",
+)
 
 AnyException: TypeAlias = BaseException
 
@@ -18,3 +27,11 @@ EmptyTuple = Tuple[()]
 
 def is_error(item: Any) -> TypeGuard[AnyException]:
     return is_instance(item, AnyException)
+
+
+def is_async_iterable(async_iterable: AnyIterable[T]) -> TypeGuard[AsyncIterable[T]]:
+    return is_instance(async_iterable, AsyncIterable)
+
+
+def is_iterable(iterable: AnyIterable[T]) -> TypeGuard[Iterable[T]]:
+    return is_instance(iterable, Iterable)
