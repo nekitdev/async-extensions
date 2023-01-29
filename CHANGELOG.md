@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 1.1.1 (2023-01-29)
+
+### Features
+
+- Added `py.typed` marker.
+
 ## 1.1.0 (2023-01-29)
 
 ### Changes
