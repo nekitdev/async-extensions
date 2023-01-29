@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "async-extensions"
-version = "1.0.0"
+version = "1.1.0"
 description = "Asynchronous extensions."
 authors = ["nekitdev"]
 license = "MIT"
@@ -36,7 +36,6 @@ attrs = ">= 22.2.0"
 anyio = ">= 3.6.2"
 solus = ">= 1.1.0"
 iters = ">= 0.10.0"
-wraps = ">= 0.3.0"
 
 [tool.poetry.group.format]
 optional = true
@@ -90,7 +89,7 @@ warn_unused_ignores = false  # compatibility
 
 [tool.changelogging]
 name = "async-extensions"
-version = "1.0.0"
+version = "1.1.0"
 url = "https://github.com/nekitdev/async-extensions"
 directory = "changes"
 output = "CHANGELOG.md"
