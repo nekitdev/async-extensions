@@ -1,12 +1,11 @@
-from functools import partial
-from typing import Awaitable, Callable, TypeVar
+from typing import Awaitable, TypeVar
 
 from anyio import run as run_standard
-from typing_extensions import ParamSpec
+
+from async_extensions.constants import DEFAULT_BACKEND
 
 __all__ = ("run",)
 
-P = ParamSpec("P")
 T = TypeVar("T")
 
 
@@ -14,5 +13,5 @@ async def awaiting(awaitable: Awaitable[T]) -> T:
     return await awaitable
 
 
-def run(function: Callable[P, Awaitable[T]], *args: P.args, **kwargs: P.kwargs) -> T:
-    return run_standard(awaiting(partial(function, *args, **kwargs)))  # type: ignore
+def run(awaitable: Awaitable[T], backend: str = DEFAULT_BACKEND) -> T:
+    return run_standard(awaiting, awaitable, backend=backend)

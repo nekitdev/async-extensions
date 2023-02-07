@@ -1,4 +1,6 @@
 DEFAULT_SHIELD = False
 
+DEFAULT_BACKEND = "asyncio"
+
 INFINITY_LITERAL = "infinity"
 INFINITY = float(INFINITY_LITERAL)

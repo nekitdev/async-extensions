@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 1.2.1 (2023-02-07)
+
+### Changes
+
+- Updated `run` function, now accepting `awaitable` and `backend` arguments.
+
 ## 1.2.0 (2023-01-29)
 
 ### Changes
