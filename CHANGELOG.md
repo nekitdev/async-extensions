@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 1.2.2 (2023-04-07)
+
+### Fixes
+
+- Fixed `async_iter` being an async function.
+
 ## 1.2.1 (2023-02-07)
 
 ### Changes
