@@ -12,7 +12,7 @@ T = TypeVar("T")
 U = TypeVar("U")
 
 
-async def async_iter(async_iterable: AsyncIterable[T]) -> AsyncIterator[T]:
+def async_iter(async_iterable: AsyncIterable[T]) -> AsyncIterator[T]:
     if is_instance(async_iterable, AsyncIterable):
         return async_iterable.__aiter__()
 
