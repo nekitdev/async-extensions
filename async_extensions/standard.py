@@ -36,7 +36,7 @@ async def async_next(
         try:
             return await async_iterator.__anext__()
 
-        except StopIteration:
+        except StopAsyncIteration:
             if default is no_default:
                 raise
 

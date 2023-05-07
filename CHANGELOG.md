@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 1.2.3 (2023-05-07)
+
+### Fixes
+
+- Fixed `async_next` wrongly handling `StopIteration` instead of `StopAsyncIteration`.
+
 ## 1.2.2 (2023-04-07)
 
 ### Fixes
