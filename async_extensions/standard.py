@@ -29,9 +29,7 @@ async def async_next(async_iterator: AsyncIterator[T], default: U) -> Union[T, U
     ...
 
 
-async def async_next(
-    async_iterator: AsyncIterator[Any], default: Any = no_default
-) -> Any:
+async def async_next(async_iterator: AsyncIterator[Any], default: Any = no_default) -> Any:
     if is_instance(async_iterator, AsyncIterator):
         try:
             return await async_iterator.__anext__()

@@ -4,7 +4,7 @@ from anyio import run as run_standard
 
 from async_extensions.constants import DEFAULT_BACKEND
 
-__all__ = ("run",)
+__all__ = ("awaiting", "run")
 
 T = TypeVar("T")
 

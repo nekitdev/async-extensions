@@ -1,32 +1,21 @@
 from builtins import isinstance as is_instance
-from typing import Any, AsyncIterable, Iterable, Tuple, TypeVar, Union
+from typing import Any, AsyncIterable, Iterable, Type, TypeVar, Union
 
-from typing_extensions import TypeAlias, TypeGuard
+from typing_extensions import TypeGuard
 
 __all__ = (
-    "AnyException",
+    "AnyType",
     "AnyIterable",
-    "DynamicTuple",
-    "EmptyTuple",
-    "is_error",
     "is_async_iterable",
     "is_iterable",
     "is_instance",
 )
 
-AnyException: TypeAlias = BaseException
-
 T = TypeVar("T")
 
+AnyType = Type[Any]
+
 AnyIterable = Union[AsyncIterable[T], Iterable[T]]
-
-DynamicTuple = Tuple[T, ...]
-
-EmptyTuple = Tuple[()]
-
-
-def is_error(item: Any) -> TypeGuard[AnyException]:
-    return is_instance(item, AnyException)
 
 
 def is_async_iterable(async_iterable: AnyIterable[T]) -> TypeGuard[AsyncIterable[T]]:

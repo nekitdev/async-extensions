@@ -1,3 +1,13 @@
+from typing import TYPE_CHECKING
+
 from anyio import create_task_group
 
-__all__ = ("create_task_group",)
+from async_extensions.typing import AnyType
+
+__all__ = ("TaskGroup", "create_task_group")
+
+if TYPE_CHECKING:
+    TaskGroup = type(create_task_group())
+
+else:
+    TaskGroup = AnyType

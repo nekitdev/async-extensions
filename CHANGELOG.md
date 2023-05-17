@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 1.3.0 (2023-05-18)
+
+### Features
+
+- Added `TaskGroup` type to exports.
+
 ## 1.2.3 (2023-05-07)
 
 ### Fixes

@@ -1,19 +1,26 @@
 from abc import abstractmethod as required
 from types import TracebackType as Traceback
-from typing import Awaitable, Generic, Optional, Type, TypeVar, overload
+from typing import AsyncContextManager, Awaitable, Optional, Type, TypeVar, final
 
+from attrs import frozen
+from funcs.typing import AnyError
 from typing_extensions import Protocol, runtime_checkable
 
 from async_extensions.cancel import create_cancel_scope
-from async_extensions.typing import AnyException
 
 __all__ = (
-    "AsyncCloseable", "AsyncClosing", "async_close", "async_close_forcefully", "async_closing"
+    "AsyncCloseable",
+    "AsyncClosing",
+    "async_close",
+    "async_close_forcefully",
+    "async_closing",
 )
 
 
 @runtime_checkable
 class AsyncCloseable(Protocol):
+    """Represents resources implementing asynchronous closing."""
+
     @required
     def aclose(self) -> Awaitable[None]:
         """Close the resource asynchronously."""
@@ -34,29 +41,16 @@ async def async_close_forcefully(resource: AsyncCloseable) -> None:
 
 
 R = TypeVar("R", bound=AsyncCloseable)
-E = TypeVar("E", bound=AnyException)
+E = TypeVar("E", bound=AnyError)
 
 
-class AsyncClosing(Generic[R]):
-    def __init__(self, resource: R) -> None:
-        self._resource = resource
-
-    @property
-    def resource(self) -> R:
-        return self._resource
+@final
+@frozen()
+class AsyncClosing(AsyncContextManager[R]):
+    resource: R
 
     async def __aenter__(self) -> R:
         return self.resource
-
-    @overload
-    async def __aexit__(
-        self, error_type: Type[E], error: E, traceback: Traceback
-    ) -> None:
-        ...
-
-    @overload
-    async def __aexit__(self, error_type: None, error: None, traceback: None) -> None:
-        ...
 
     async def __aexit__(
         self,
@@ -67,4 +61,5 @@ class AsyncClosing(Generic[R]):
         await async_close(self.resource)
 
 
-async_closing = AsyncClosing
+def async_closing(resource: R) -> AsyncClosing[R]:
+    return AsyncClosing(resource)

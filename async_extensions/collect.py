@@ -1,24 +1,22 @@
-from typing import (
-    Any, AsyncIterable, AsyncIterator, Awaitable, List, Tuple, TypeVar, Union, overload
-)
+from typing import Any, AsyncIterable, AsyncIterator, Awaitable, List, Tuple, TypeVar, overload
+
+from funcs.typing import AnyError, DynamicTuple, EmptyTuple
+from wraps.result import Error, Ok, Result
 
 from async_extensions.standard import iter_to_async_iter
 from async_extensions.task_group import create_task_group
-from async_extensions.typing import (
-    AnyException, AnyIterable, DynamicTuple, EmptyTuple, is_async_iterable, is_error, is_iterable
-)
+from async_extensions.typing import AnyIterable, is_async_iterable, is_iterable
 
 __all__ = ("collect", "collect_results", "collect_iterable", "collect_iterable_results")
 
 T = TypeVar("T")
-ET = TypeVar("ET", bound=AnyException)
+ErrorT = TypeVar("ErrorT", bound=AnyError)
 
 
-Result = Union[T, ET]
-TaggedResult = Tuple[int, Result[T, ET]]
+TaggedResult = Tuple[int, Result[T, ErrorT]]
 
-AnyTaggedResult = TaggedResult[T, AnyException]
-AnyResult = Result[T, AnyException]
+AnyTaggedResult = TaggedResult[T, AnyError]
+AnyResult = Result[T, AnyError]
 
 
 async def append_tagged_result(
@@ -29,10 +27,10 @@ async def append_tagged_result(
     result: AnyResult[T]
 
     try:
-        result = await awaitable
+        result = Ok(await awaitable)
 
-    except AnyException as error:
-        result = error
+    except AnyError as error:
+        result = Error(error)
 
     results.append((tag, result))
 
@@ -43,7 +41,7 @@ def by_tag(tagged_result: AnyTaggedResult[Any]) -> int:
     return tag
 
 
-def result(tagged_result: TaggedResult[T, ET]) -> Result[T, ET]:
+def result(tagged_result: TaggedResult[T, ErrorT]) -> Result[T, ErrorT]:
     _, result = tagged_result
 
     return result
@@ -112,9 +110,7 @@ async def collect_results(
     __awaitable_d: Awaitable[D],
     __awaitable_e: Awaitable[E],
     __awaitable_f: Awaitable[F],
-) -> Tuple[
-    AnyResult[A], AnyResult[B], AnyResult[C], AnyResult[D], AnyResult[E], AnyResult[F]
-]:
+) -> Tuple[AnyResult[A], AnyResult[B], AnyResult[C], AnyResult[D], AnyResult[E], AnyResult[F]]:
     ...
 
 
@@ -172,6 +168,7 @@ async def collect_results(
     __awaitable_f: Awaitable[Any],
     __awaitable_g: Awaitable[Any],
     __awaitable_h: Awaitable[Any],
+    __awaitable_n: Awaitable[Any],
     *awaitables: Awaitable[Any],
 ) -> DynamicTuple[AnyResult[Any]]:
     ...
@@ -185,7 +182,7 @@ NOT_ANY_ITERABLE = "{} is neither an async iterable, nor an iterable"
 
 
 async def tag_awaitables(
-    awaitables: AsyncIterable[Awaitable[T]]
+    awaitables: AsyncIterable[Awaitable[T]],
 ) -> AsyncIterator[Tuple[int, Awaitable[T]]]:
     tag = 0
 
@@ -220,13 +217,6 @@ async def collect_iterable_results(
     return list(map(result, results))  # type: ignore
 
 
-def unwrap_error(result: AnyResult[T]) -> T:
-    if is_error(result):
-        raise result
-
-    return result  # type: ignore
-
-
 @overload
 async def collect() -> EmptyTuple:
     ...  # pragma: overload
@@ -238,9 +228,7 @@ async def collect(__awaitable_a: Awaitable[A]) -> Tuple[A]:
 
 
 @overload
-async def collect(
-    __awaitable_a: Awaitable[A], __awaitable_b: Awaitable[B]
-) -> Tuple[A, B]:
+async def collect(__awaitable_a: Awaitable[A], __awaitable_b: Awaitable[B]) -> Tuple[A, B]:
     ...  # pragma: overload
 
 
@@ -331,4 +319,8 @@ async def collect(*awaitables: Awaitable[Any]) -> DynamicTuple[Any]:
 
 
 async def collect_iterable(iterable: AnyIterable[Awaitable[T]]) -> List[T]:
-    return list(map(unwrap_error, await collect_iterable_results(iterable)))
+    return list(map(raising, await collect_iterable_results(iterable)))
+
+
+def raising(result: AnyResult[T]) -> T:
+    return result.raising()
