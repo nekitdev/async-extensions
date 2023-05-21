@@ -1,11 +1,12 @@
 from typing import Any, AsyncIterable, AsyncIterator, Awaitable, List, Tuple, TypeVar, overload
 
-from funcs.typing import AnyError, DynamicTuple, EmptyTuple
+from typing_aliases import (
+    AnyError, AnyIterable, DynamicTuple, EmptyTuple, is_async_iterable, is_iterable
+)
 from wraps.result import Error, Ok, Result
 
 from async_extensions.standard import iter_to_async_iter
 from async_extensions.task_group import create_task_group
-from async_extensions.typing import AnyIterable, is_async_iterable, is_iterable
 
 __all__ = ("collect", "collect_results", "collect_iterable", "collect_iterable_results")
 

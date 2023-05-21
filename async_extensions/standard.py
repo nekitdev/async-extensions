@@ -1,7 +1,8 @@
 from typing import Any, AsyncIterable, AsyncIterator, Iterable, TypeVar, Union, overload
 
+from typing_aliases import is_instance
+
 from async_extensions.types import no_default
-from async_extensions.typing import is_instance
 
 __all__ = ("async_iter", "async_next", "iter_to_async_iter")
 

@@ -3,7 +3,7 @@ from types import TracebackType as Traceback
 from typing import AsyncContextManager, Awaitable, Optional, Type, TypeVar, final
 
 from attrs import frozen
-from funcs.typing import AnyError
+from typing_aliases import AnyError
 from typing_extensions import Protocol, runtime_checkable
 
 from async_extensions.cancel import create_cancel_scope
