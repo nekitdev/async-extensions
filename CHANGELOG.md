@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 1.4.1 (2023-05-24)
+
+### Fixes
+
+- Fixed `final` import to be compatible with Python 3.7.
+
 ## 1.4.0 (2023-05-21)
 
 ### Internal

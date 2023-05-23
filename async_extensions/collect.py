@@ -1,7 +1,12 @@
 from typing import Any, AsyncIterable, AsyncIterator, Awaitable, List, Tuple, TypeVar, overload
 
 from typing_aliases import (
-    AnyError, AnyIterable, DynamicTuple, EmptyTuple, is_async_iterable, is_iterable
+    AnyError,
+    AnyIterable,
+    DynamicTuple,
+    EmptyTuple,
+    is_async_iterable,
+    is_iterable,
 )
 from wraps.result import Error, Ok, Result
 

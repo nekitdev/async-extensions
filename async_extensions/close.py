@@ -1,10 +1,10 @@
 from abc import abstractmethod as required
 from types import TracebackType as Traceback
-from typing import AsyncContextManager, Awaitable, Optional, Type, TypeVar, final
+from typing import AsyncContextManager, Awaitable, Optional, Type, TypeVar
 
 from attrs import frozen
 from typing_aliases import AnyError
-from typing_extensions import Protocol, runtime_checkable
+from typing_extensions import Protocol, final, runtime_checkable
 
 from async_extensions.cancel import create_cancel_scope
 
