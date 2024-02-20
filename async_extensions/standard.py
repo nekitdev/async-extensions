@@ -6,8 +6,11 @@ from async_extensions.types import no_default
 
 __all__ = ("async_iter", "async_next", "iter_to_async_iter")
 
-NOT_ASYNC_ITERABLE = "{} is not an async iterable"
-NOT_ASYNC_ITERATOR = "{} is not an async iterator"
+NOT_ASYNC_ITERABLE = "{!r} is not an async iterable"
+not_async_iterable = NOT_ASYNC_ITERABLE.format
+
+NOT_ASYNC_ITERATOR = "{!r} is not an async iterator"
+not_async_iterator = NOT_ASYNC_ITERATOR.format
 
 T = TypeVar("T")
 U = TypeVar("U")
@@ -17,7 +20,7 @@ def async_iter(async_iterable: AsyncIterable[T]) -> AsyncIterator[T]:
     if is_instance(async_iterable, AsyncIterable):
         return async_iterable.__aiter__()
 
-    raise TypeError(NOT_ASYNC_ITERABLE.format(repr(async_iterable)))
+    raise TypeError(not_async_iterable(async_iterable))
 
 
 @overload
@@ -41,7 +44,7 @@ async def async_next(async_iterator: AsyncIterator[Any], default: Any = no_defau
 
             return default
 
-    raise TypeError(NOT_ASYNC_ITERATOR.format(repr(async_iterator)))
+    raise TypeError(not_async_iterator(async_iterator))
 
 
 async def iter_to_async_iter(iterable: Iterable[T]) -> AsyncIterator[T]:

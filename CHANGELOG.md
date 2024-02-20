@@ -2,6 +2,13 @@
 
 <!-- changelogging: start -->
 
+## 2.0.0 (2024-02-20)
+
+### Internal
+
+- Migrated to AnyIO 4.
+- Dropped Python 3.7 support.
+
 ## 1.4.1 (2023-05-24)
 
 ### Fixes

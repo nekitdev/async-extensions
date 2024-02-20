@@ -69,6 +69,10 @@ site/
 
 cython_debug/
 
+# formatters
+
+.ruff_cache/
+
 # various logs
 
 *.log

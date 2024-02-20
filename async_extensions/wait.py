@@ -29,4 +29,4 @@ async def wait_for_or_else(
     with move_on_after(timeout, shield=shield):
         return await awaitable
 
-    return default  # type: ignore
+    return default

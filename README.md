@@ -10,7 +10,7 @@
 
 ## Installing
 
-**Python 3.7 or above is required.**
+**Python 3.8 or above is required.**
 
 ### pip
 
@@ -40,7 +40,7 @@ Or by directly specifying it in the configuration like so:
 
 ```toml
 [tool.poetry.dependencies]
-async-extensions = "^1.4.1"
+async-extensions = "^2.0.0"
 ```
 
 Alternatively, you can add it directly from the source:
@@ -74,7 +74,7 @@ If you are interested in contributing to `async-extensions`, make sure to take a
 
 [Email]: mailto:support@nekit.dev
 
-[Discord]: https://nekit.dev/discord
+[Discord]: https://nekit.dev/chat
 
 [Actions]: https://github.com/nekitdev/async-extensions/actions
 
