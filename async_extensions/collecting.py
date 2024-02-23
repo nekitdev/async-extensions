@@ -11,7 +11,7 @@ from typing_aliases import (
 from wraps.result import Error, Ok, Result
 
 from async_extensions.standard import iter_to_async_iter
-from async_extensions.task_group import create_task_group
+from async_extensions.task_groups import create_task_group
 
 __all__ = ("collect", "collect_results", "collect_iterable", "collect_iterable_results")
 
@@ -33,7 +33,9 @@ async def append_tagged_result(
     result: AnyResult[T]
 
     try:
-        result = Ok(await awaitable)
+        value = await awaitable
+
+        result = Ok(value)
 
     except AnyError as error:
         result = Error(error)
@@ -220,7 +222,7 @@ async def collect_iterable_results(
 
     results.sort(key=by_tag)
 
-    return list(map(result, results))  # type: ignore
+    return list(map(result, results))  # type: ignore[arg-type]
 
 
 @overload
@@ -325,7 +327,7 @@ async def collect(*awaitables: Awaitable[Any]) -> DynamicTuple[Any]:
 
 
 async def collect_iterable(iterable: AnyIterable[Awaitable[T]]) -> List[T]:
-    return list(map(raising, await collect_iterable_results(iterable)))
+    return list(map(raising, await collect_iterable_results(iterable)))  # type: ignore[arg-type]
 
 
 def raising(result: AnyResult[T]) -> T:

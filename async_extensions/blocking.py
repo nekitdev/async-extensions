@@ -1,8 +1,8 @@
-from functools import partial
 from typing import Callable, TypeVar
 
 from anyio.to_process import run_sync as standard_run_blocking_in_process
 from anyio.to_thread import run_sync as standard_run_blocking_in_thread
+from funcs.application import partial
 from typing_extensions import ParamSpec
 
 __all__ = ("run_blocking_in_thread", "run_blocking_in_process")

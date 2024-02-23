@@ -2,10 +2,11 @@
 
 <!-- changelogging: start -->
 
-## 2.0.0 (2024-02-20)
+## 2.0.0 (2024-02-24)
 
 ### Internal
 
+- Renamed most of the modules.
 - Migrated to AnyIO 4.
 - Dropped Python 3.7 support.
 
