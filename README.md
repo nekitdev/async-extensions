@@ -8,6 +8,9 @@
 
 > *Asynchronous extensions.*
 
+`async-extensions` builds on top of [`anyio`][anyio] to improve backend-agnostic
+asynchronous programming.
+
 ## Installing
 
 **Python 3.8 or above is required.**
@@ -40,7 +43,7 @@ Or by directly specifying it in the configuration like so:
 
 ```toml
 [tool.poetry.dependencies]
-async-extensions = "^3.0.1"
+async-extensions = "^3.1.0"
 ```
 
 Alternatively, you can add it directly from the source:
@@ -92,3 +95,5 @@ If you are interested in contributing to `async-extensions`, make sure to take a
 [Version Badge]: https://img.shields.io/pypi/v/async-extensions
 [Downloads Badge]: https://img.shields.io/pypi/dm/async-extensions
 [Check Badge]: https://github.com/nekitdev/async-extensions/workflows/check/badge.svg
+
+[anyio]: https://github.com/agronholm/anyio

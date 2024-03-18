@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 3.1.0 (2024-03-19)
+
+### Features
+
+- Added `async_next_any_iter`.
+
 ## 3.0.1 (2024-03-18)
 
 ### Changes
