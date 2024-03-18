@@ -3,7 +3,7 @@ from typing import Awaitable, TypeVar
 from anyio import run as run_standard
 from funcs.functions import awaiting
 
-from async_extensions.constants import DEFAULT_BACKEND
+from async_extensions.defaults import DEFAULT_BACKEND
 
 __all__ = ("run",)
 

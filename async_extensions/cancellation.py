@@ -3,7 +3,7 @@ from typing import Awaitable, TypeVar
 from anyio import CancelScope
 from anyio import get_cancelled_exc_class as get_cancelled_error_type
 
-from async_extensions.constants import DEFAULT_SHIELD
+from async_extensions.defaults import DEFAULT_SHIELD
 
 __all__ = ("CancelScope", "create_cancel_scope", "get_cancelled_error_type")
 

@@ -1,3 +1,5 @@
+__all__ = ("DEFAULT_SHIELD", "DEFAULT_BACKEND")
+
 DEFAULT_SHIELD = False
 
 DEFAULT_BACKEND = "asyncio"

@@ -4,7 +4,7 @@ from anyio import fail_after, move_on_after
 from wraps.option import NULL, Option, Some
 from wraps.wraps import wrap_future_option
 
-from async_extensions.constants import DEFAULT_SHIELD
+from async_extensions.defaults import DEFAULT_SHIELD
 
 __all__ = ("fail_after", "move_on_after", "wait_for")
 
