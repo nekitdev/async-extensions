@@ -2,6 +2,13 @@
 
 <!-- changelogging: start -->
 
+## 3.0.1 (2024-03-18)
+
+### Changes
+
+- Type names are now used instead of instance representations in errors raised by
+  `async_iter`, `async_next` and `async_iter_any_iter`.
+
 ## 3.0.0 (2024-03-18)
 
 ### Features
