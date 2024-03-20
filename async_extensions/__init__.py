@@ -6,7 +6,7 @@ __url__ = "https://github.com/nekitdev/async-extensions"
 __title__ = "async_extensions"
 __author__ = "nekitdev"
 __license__ = "MIT"
-__version__ = "3.1.0"
+__version__ = "3.1.1"
 
 from async_extensions.blocking import run_blocking_in_process, run_blocking_in_thread
 from async_extensions.cancellation import CancelScope, create_cancel_scope, shield

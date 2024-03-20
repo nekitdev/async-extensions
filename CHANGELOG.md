@@ -2,6 +2,12 @@
 
 <!-- changelogging: start -->
 
+## 3.1.1 (2024-03-20)
+
+### Internal
+
+- `async_iter_any_iter` now uses `is_iterable_with_iter` to ensure correctness.
+
 ## 3.1.0 (2024-03-19)
 
 ### Features

@@ -6,7 +6,7 @@ from typing_aliases import (
     AnyIterator,
     is_async_iterable,
     is_async_iterator,
-    is_iterable,
+    is_iterable_with_iter,
     is_iterator,
 )
 
@@ -92,7 +92,7 @@ def async_iter_any_iter(iterable: AnyIterable[T]) -> AsyncIterator[T]:
     if is_async_iterable(iterable):
         return async_iter_unchecked(iterable)
 
-    if is_iterable(iterable):
+    if is_iterable_with_iter(iterable):
         return iter_to_async_iter(iterable)
 
     raise TypeError(not_any_iterable(get_type_name(iterable)))
