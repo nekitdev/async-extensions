@@ -43,7 +43,7 @@ Or by directly specifying it in the configuration like so:
 
 ```toml
 [tool.poetry.dependencies]
-async-extensions = "^3.1.1"
+async-extensions = "^3.1.2"
 ```
 
 Alternatively, you can add it directly from the source:

@@ -2,6 +2,13 @@
 
 <!-- changelogging: start -->
 
+## 3.1.2 (2024-03-21)
+
+### Internal
+
+- `is_no_default` now accepts `Any` as the argument; since `NoDefaultOr[T]` is not used anymore,
+  it was removed.
+
 ## 3.1.1 (2024-03-20)
 
 ### Internal
